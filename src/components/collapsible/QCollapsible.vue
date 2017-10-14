@@ -24,13 +24,18 @@
       </div>
     </q-item-wrapper>
 
-    <q-slide-transition>
+    <!-- <q-slide-transition>
       <div v-show="active">
         <div class="q-collapsible-sub-item relative-position" :class="{indent: indent}">
           <slot></slot>
         </div>
       </div>
-    </q-slide-transition>
+    </q-slide-transition> -->
+    <div ref="heightTransitionContainer" class="max-height-transition">
+      <div class="q-collapsible-sub-item relative-position" :class="{indent: indent}">
+        <slot></slot>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -86,6 +91,32 @@ export default {
     active (val) {
       if (val && this.group) {
         Events.$emit(eventName, this)
+      }
+
+      if (val) {
+        const height = this.$refs.heightTransitionContainer.scrollHeight
+
+        requestAnimationFrame(() => {
+          this.$refs.heightTransitionContainer.style.maxHeight = height + 'px'
+          setTimeout(() => {
+            this.$refs.heightTransitionContainer.style.maxHeight = 'none'
+          }, 300)
+        })
+      }
+      else {
+        const height = this.$refs.heightTransitionContainer.scrollHeight
+
+        requestAnimationFrame(() => {
+          this.$refs.heightTransitionContainer.style.maxHeight = height + 'px'
+
+          setTimeout(() => {
+            this.$refs.heightTransitionContainer.style.maxHeight = '0px'
+          }, 10)
+
+          setTimeout(() => {
+            this.$refs.heightTransitionContainer.style.removeProperty('max-height')
+          }, 320)
+        })
       }
 
       this.$emit(val ? 'open' : 'close')

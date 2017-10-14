@@ -9,3 +9,15 @@
 
 .q-collapsible.router-link-active > .q-item
   background $collapsible-active-color
+  
+.max-height-transition
+  max-height 0
+  overflow-y hidden
+  -webkit-transition max-height 0.3s ease
+  -moz-transition max-height 0.3s ease
+  -o-transition max-height 0.3s ease
+  transition max-height 0.3s ease
+  
+.q-collapsible-open
+  .max-height-transition
+    overflow-y auto
