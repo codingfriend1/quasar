@@ -1,4 +1,4 @@
-import DefaultSpinner from './QSpinner'
+import DefaultSpinner from './QSpinner.mat'
 
 import QSpinnerAudio from './list/audio.vue'
 import QSpinnerBall from './list/ball.vue'
